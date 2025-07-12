@@ -330,4 +330,32 @@ const Mobnav = () => {
                   Sign Up
                 </Link>
                 <a
-                  
+                  href={`${import.meta.env.VITE_API_URL}/auth/google/login`}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    padding: "12px 16px",
+                    color: "#ffffff",
+                    textAlign: "center",
+                    textDecoration: "none",
+                    cursor: "pointer",
+                    transition: "background-color 0.3s ease",
+                    backgroundColor: "#5a5353",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    borderRadius: "8px",
+                    boxSizing: "border-box",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = "#454545";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = "#5a5353";
+                  }}
+                >
+                  Login with Google
+                </a>
+              </div>
+            )}
+          </div>
+        )
