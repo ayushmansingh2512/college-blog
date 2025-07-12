@@ -35,3 +35,4 @@ watchfiles==1.1.0
 websockets==15.0.1
 python-dotenv 
 cloudinary 
+psycopg2-binary
