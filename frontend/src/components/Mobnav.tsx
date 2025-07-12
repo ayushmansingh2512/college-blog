@@ -367,7 +367,9 @@ const Mobnav = () => {
               </div>
             )}
           </div>
+        )}
         </div>
       </nav>
     );
 };
+export default Mobnav;  
