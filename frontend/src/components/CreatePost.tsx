@@ -110,7 +110,7 @@ const CreatePost: React.FC = () => {
                 alert('Post created successfully!');
                 navigate('/');
             } else {
-                const errorData = await response.json();
+                const errorData = response.data;
                 alert(`Error creating post: ${errorData.detail || 'Unknown error'}`);
             }
         } catch (error) {

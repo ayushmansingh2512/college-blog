@@ -77,10 +77,7 @@ const Navbar = () => {
     };
   }, []);
 
-  const handleGoogleLogin = () => {
-    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google/login`;
-    setIsDropdownOpen(false);
-  };
+  
 
   const handleLogout = () => {
     localStorage.removeItem("access_token");
@@ -111,7 +108,7 @@ const Navbar = () => {
       }}
        className="desktop-nav"
     >
-      <style jsx>{`
+      <style>{`
     .desktop-nav {
       display: flex;
     }

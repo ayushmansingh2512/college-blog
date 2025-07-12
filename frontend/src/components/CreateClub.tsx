@@ -110,7 +110,7 @@ const CreateClub: React.FC = () => {
                 alert('Club created successfully!');
                 navigate('/clubs');
             } else {
-                const errorData = await response.json();
+                const errorData = response.data;
                 alert(`Error creating club: ${errorData.detail || 'Unknown error'}`);
             }
         } catch (error) {

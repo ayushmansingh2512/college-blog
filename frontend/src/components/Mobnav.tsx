@@ -80,14 +80,7 @@ const handleGoogleLogin = () => {
   setIsDropdownOpen(false);
 };
 
-  const handleLogout = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("token_type");
-    setIsLoggedIn(false);
-    setIsDropdownOpen(false);
-    window.dispatchEvent(new Event("logoutEvent"));
-    window.location.href = "/login";
-  };
+  
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -128,16 +121,6 @@ const handleGoogleLogin = () => {
       className="mobile-nav"
     >
       <style>{`
-        .mobile-nav {
-          display: none;
-        }
-        
-        @media (max-width: 768px) {
-          .mobile-nav {
-            display: block !important;
-          }
-        }
-      `}</style>
 
       <div
         style={{
