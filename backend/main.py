@@ -11,13 +11,13 @@ from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List, Optional
 from datetime import datetime, timedelta
-from . import crud, models, schemas, auth
+from backend import crud, models, schemas, auth
 from .database import SessionLocal, engine, get_db
 from .email_utils import send_verification_email
 import secrets
 from typing import List
 from .schemas import BookmarkCreate, Bookmark # Add this line
-from .crud import create_bookmark, get_bookmark_by_user_and_post, delete_bookmark, get_bookmarks_by_user # Add this line
+from backend.crud import create_bookmark, get_bookmark_by_user_and_post, delete_bookmark, get_bookmarks_by_user # Add this line
 
 load_dotenv()
 
