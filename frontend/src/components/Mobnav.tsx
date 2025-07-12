@@ -367,4 +367,7 @@ const Mobnav = () => {
               </div>
             )}
           </div>
-        )
+        </div>
+      </nav>
+    );
+};
