@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Lottie from "lottie-react";
-import api from "../api";
+
 
 const Mobnav = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -11,7 +11,7 @@ const Mobnav = () => {
   const resourcesLottieRef = useRef<any>(null);
   const clubLottieRef = useRef<any>(null);
   const profileLottieRef = useRef<any>(null);
-  const location = useLocation();
+  
 
   const [homeAnimation, setHomeAnimation] = useState<any>(null);
   const [resourcesAnimation, setResourcesAnimation] = useState<any>(null);
@@ -75,10 +75,7 @@ const Mobnav = () => {
     };
   }, []);
 
-const handleGoogleLogin = () => {
-  window.location.href = `${import.meta.env.VITE_API_URL}/auth/google/login`;
-  setIsDropdownOpen(false);
-};
+
 
   
 
@@ -333,38 +330,4 @@ const handleGoogleLogin = () => {
                   Sign Up
                 </Link>
                 <a
-                  href={`${import.meta.env.VITE_API_URL}/auth/google/login`}
-                  style={{
-                    display: "block",
-                    width: "100%",
-                    padding: "12px 16px",
-                    color: "#ffffff",
-                    textAlign: "center",
-                    textDecoration: "none",
-                    cursor: "pointer",
-                    transition: "background-color 0.3s ease",
-                    backgroundColor: "#5a5353",
-                    fontSize: "16px",
-                    fontWeight: "bold",
-                    borderRadius: "8px",
-                    boxSizing: "border-box",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "#454545";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "#5a5353";
-                  }}
-                >
-                  Login with Google
-                </a>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
-    </nav>
-  );
-};
-
-export default Mobnav;
+                  

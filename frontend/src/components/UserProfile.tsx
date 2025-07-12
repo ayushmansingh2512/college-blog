@@ -110,7 +110,7 @@ const UserProfile = () => {
     }
 
     try {
-      const response = await axios.put(
+      const response = await api.put(
         "/users/me/username",  
         { username: newUsername },
         {

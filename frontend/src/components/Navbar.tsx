@@ -79,14 +79,7 @@ const Navbar = () => {
 
   
 
-  const handleLogout = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("token_type");
-    setIsLoggedIn(false);
-    setIsDropdownOpen(false);
-    window.dispatchEvent(new Event("logoutEvent")); // Dispatch logout event
-    window.location.href = "/login"; // Redirect to login page after logout
-  };
+  
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);

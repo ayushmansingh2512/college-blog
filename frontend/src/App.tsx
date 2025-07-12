@@ -16,7 +16,7 @@ import CreateClub from "./components/CreateClub"
 import Navbar from "./components/Navbar"
 import ResourceCategoryManagement from "./components/ResourceCategoryManagement"
 import ClubCategoryManagement from "./components/ClubCategoryManagement"
-import Mobnav from "./components/MobNav"
+import Mobnav from "./components/Mobnav"
 
 const App = () => {
   return (

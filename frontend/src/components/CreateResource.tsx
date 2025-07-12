@@ -113,7 +113,7 @@ const CreateResource: React.FC = () => {
                 alert('Resource created successfully!');
                 navigate('/resources');
             } else {
-                const errorData = await response.json();
+                const errorData = response.data;
                 alert(`Error creating resource: ${errorData.detail || 'Unknown error'}`);
             }
         } catch (error) {
