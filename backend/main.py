@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List, Optional
 from datetime import datetime, timedelta
-from . import crud, models, schemas, auth
+from backend import crud, models, schemas, auth
 from .database import SessionLocal, engine, get_db
 from .email_utils import send_verification_email
 import secrets
