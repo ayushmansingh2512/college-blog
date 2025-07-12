@@ -87,7 +87,7 @@ const Mobnav = () => {
     ref.current?.goToAndPlay(0, true);
   };
 
-  const [isMobile, setIsMobile] = useState(false); // Added a comment to force re-evaluation
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -370,3 +370,4 @@ const Mobnav = () => {
         </div>
       </nav>
     );
+};
