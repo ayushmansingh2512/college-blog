@@ -120,7 +120,6 @@ const handleGoogleLogin = () => {
       }}
       className="mobile-nav"
     >
-      <style>{`
 
       <div
         style={{
