@@ -1,0 +1,349 @@
+ @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+ @font-face {
+  font-family: 'rejoy';
+  src: url('/Rejouice-Headline.ttf') format('truetype');
+}
+
+body {
+  font-family: 'inter';
+}
+
+.filter-bar {
+  display: flex;
+  border-radius: 30px;
+  border:  none;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  
+}
+
+.search-blog {
+  padding: 0  1rem;
+  height: 60px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center; 
+    justify-content: center;
+ 
+}
+
+.search-blog:last-child {
+  border-right: none;
+}
+
+.search-blog:focus {
+  outline: none;
+}
+
+select.search-blog {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%231a1a1a%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem top 50%;
+  background-size: 0.65rem auto;
+  padding-right: 2.5rem;
+  min-width: 200px;
+}
+
+.search-blog option {
+  font-weight: normal;
+}
+
+.date-filter-button {
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  background: none;
+  border: 2px solid #d1d5db;
+  padding: 0rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  min-width: 200px;
+  font-family: 'inter';
+  border: none;
+ 
+}
+
+.date-filter-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+
+.date-filter-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+   
+}
+
+.date-filter-inputs label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.date-filter-inputs input[type="date"] {
+  padding: 0.5rem;
+  border: 2px solid #d1d5db;
+  border-radius: 0.375rem;
+}
+
+.create-post-button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  height: 60px;
+  width: 60px;
+  text-decoration: none;
+  color: white;
+  background-color: #3a97e3;
+  border-radius: 50%;
+  font-size: 2.5rem; /* Slightly reduced for better fit */
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  z-index: 1000;
+}
+ 
+.search-glass{
+  height: 50px;
+  width: 50px;
+  background-color: #3a97e3;
+  border-radius: 50%;
+  border: none;
+  
+  
+}
+.search-svg{
+  height: 25px;
+  fill:white
+  
+}
+.burger{
+  height: 35px;
+  width: 35px;
+}
+.mobile-nav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-nav {
+    display: block !important;
+  }
+}    
+/* EditPost.css */
+
+/* Reset default styles for consistency */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container Styling */
+.edit-post-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading Styling */
+.edit-post-container h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Form Styling */
+.edit-post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Form Group Styling */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Label Styling */
+.form-group label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* Input Styling */
+.form-input,
+.form-textarea,
+.form-select,
+.form-file {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus,
+.form-file:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+  outline: none;
+}
+
+/* Textarea Specific Styling */
+.form-textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+/* File Input Styling */
+.form-file {
+  padding: 0.5rem;
+}
+
+/* Select Styling */
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23374151' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+}
+
+/* Image Preview Styling */
+.image-preview {
+  margin-bottom: 1rem;
+}
+
+.image-preview p {
+  font-size: 0.9rem;
+  color: #4b5563;
+  margin-bottom: 0.5rem;
+}
+
+.image-preview img {
+  max-width: 200px;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Styling */
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary {
+  background-color: #3b82f6;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: #6b7280;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #4b5563;
+  transform: translateY(-2px);
+}
+
+/* Button Group Styling */
+.form-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Loading State */
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #4b5563;
+  padding: 2rem;
+  background-color: #f9fafb;
+  border-radius: 6px;
+  margin: 2rem auto;
+  max-width: 700px;
+}
+
+/* Error State */
+.error {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #dc2626;
+  padding: 2rem;
+  background-color: #fee2e2;
+  border-radius: 6px;
+  margin: 2rem auto;
+  max-width: 700px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .edit-post-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .edit-post-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .form-input,
+  .form-textarea,
+  .form-select,
+  .form-file {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+}
