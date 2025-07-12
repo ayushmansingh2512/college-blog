@@ -199,28 +199,37 @@ const Mobnav = () => {
         </Link>
 
         {isLoggedIn ? (
-          <Link
-            to="/profile"
-            onClick={() => handleNavClick(profileLottieRef)}
+          <div
             style={{
-              textDecoration: "none",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               gap: "2px",
             }}
           >
-            {profileAnimation && (
-              <Lottie
-                lottieRef={profileLottieRef}
-                animationData={profileAnimation}
-                loop={false}
-                autoplay={false}
-                style={{ width: 40, height: 40 }}
-              />
-            )}
-            <span style={{ fontSize: "12px", fontWeight: "500", color: "gray" }}>Profile</span>
-          </Link>
+            <Link
+              to="/profile"
+              onClick={() => handleNavClick(profileLottieRef)}
+              style={{
+                textDecoration: "none",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "2px",
+              }}
+            >
+              {profileAnimation && (
+                <Lottie
+                  lottieRef={profileLottieRef}
+                  animationData={profileAnimation}
+                  loop={false}
+                  autoplay={false}
+                  style={{ width: 40, height: 40 }}
+                />
+              )}
+              <span style={{ fontSize: "12px", fontWeight: "500", color: "gray" }}>Profile</span>
+            </Link>
+          </div>
         ) : (
           <div style={{ position: "relative" }} ref={dropdownRef}>
             <button
