@@ -7,10 +7,10 @@ from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 import httpx
 from jose import jwt, JWTError
-from backend.database import get_db
+from .database import get_db
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm 
 from passlib.context import CryptContext
-from backend import crud, models, schemas
+from . import crud, models, schemas
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
