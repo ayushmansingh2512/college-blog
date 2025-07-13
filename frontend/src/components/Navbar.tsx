@@ -85,6 +85,10 @@ const Navbar = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  const handleGoogleLogin = () => {
+    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google/login`;
+  };
+
   const handleNavClick = (ref: React.RefObject<any>) => {
     ref.current?.goToAndPlay(0, true);
   };
