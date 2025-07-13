@@ -63,7 +63,7 @@ class Post(Base):
 
     owner = relationship("User" , back_populates="posts")
     category = relationship("PostCategory", back_populates="posts")
-    bookmarks = relationship("Bookmark", back_populates="post")
+    bookmarks = relationship("Bookmark", back_populates="post", cascade="all, delete-orphan")
 
 
 class Resource(Base):
