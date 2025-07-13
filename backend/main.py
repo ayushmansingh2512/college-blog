@@ -113,7 +113,14 @@ def read_post_categories(skip: int = 0, limit: int = 100, db: Session = Depends(
 
 @app.get("/users/me", response_model=schemas.User)
 async def read_user_me(current_user: models.User = Depends(auth.get_current_user)):
-    return current_user
+    try:
+        return current_user
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"An unexpected error occurred: {e}"
+        )
+
 @app.put("/users/me/username", response_model=schemas.User)
 def update_my_username(
     username_update: schemas.UserUpdateUsername,
