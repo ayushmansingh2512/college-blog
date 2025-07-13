@@ -43,7 +43,7 @@ const UserProfile = () => {
   const [activeTab, setActiveTab] = useState<'profile' | 'posts' | 'bookmarks'>('profile');
   const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('access_token'));
+  
 
   useEffect(() => {
     const checkMobile = () => {

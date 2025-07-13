@@ -74,8 +74,8 @@ const CreateClub: React.FC = () => {
                     },
                 });
 
-                if (uploadResponse.ok) {
-                    const uploadData = await uploadResponse.json();
+                if (uploadResponse.status === 200) { // Assuming 200 OK for successful upload
+                    const uploadData = uploadResponse.data;
                     imageUrl = uploadData.url;
                 } else {
                     const uploadErrorData = uploadResponse.data;
