@@ -353,7 +353,7 @@ const Blog = () => {
                   }}>
                     {post.image_url ? (
                       <img 
-                        src={`${import.meta.env.VITE_API_URL}${post.image_url}`} 
+                        src={`${post.image_url}`} 
                         alt={post.title} 
                         style={{ 
                           width: '100%', 
@@ -561,7 +561,7 @@ const Blog = () => {
                     marginBottom: '16px'
                   }}>
                     <img
-                      src={`${import.meta.env.VITE_API_URL}${selectedPost.image_url}`}
+                      src={`${selectedPost.image_url}`}
                       alt={selectedPost.title}
                       style={{ 
                         width: '100%', 
@@ -767,7 +767,7 @@ const Blog = () => {
                 }}>
                   {post.image_url ? (
                     <img 
-                      src={`${import.meta.env.VITE_API_URL}${post.image_url}`} 
+                      src={`${post.image_url}`} 
                       alt={post.title} 
                       style={{ 
                         width: '100%', 
@@ -976,7 +976,7 @@ const Blog = () => {
                   backgroundColor: '#f3f4f6'
                 }}>
                   <img
-                    src={`${import.meta.env.VITE_API_URL}${selectedPost.image_url}`}
+                    src={`${selectedPost.image_url}`}
                     alt={selectedPost.title}
                     style={{ 
                       width: '100%', 
