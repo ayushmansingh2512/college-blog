@@ -45,8 +45,8 @@ app.add_middleware(
         "http://localhost:8000"
     ],
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allow_headers=["Content-Type", "Authorization", "Accept"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allow_headers=["*"],
 )
 
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
@@ -62,11 +62,6 @@ cloudinary.config(
 @app.get("/health")
 async def health_check():
     return {"status": "healthy", "timestamp": datetime.utcnow()}
-
-@app.get("/debug-jwt-key")
-async def debug_jwt_key():
-    import os
-    return {"JWT_SECRET_KEY": os.getenv("JWT_SECRET_KEY")}
 
 @app.post("/users/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
