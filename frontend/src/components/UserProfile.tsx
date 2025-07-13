@@ -371,7 +371,7 @@ const UserProfile = () => {
                     <div key={post.id} style={isMobile ? styles.postCardMobile : styles.postCard}>
                       {post.image_url && (
                         <img
-                          src={`${import.meta.env.VITE_API_URL}${post.image_url}`}
+                          src={`${post.image_url}`}
                           alt={post.title}
                           style={isMobile ? styles.postCardImageMobile : styles.postCardImage}
                         />
@@ -420,7 +420,7 @@ const UserProfile = () => {
                     <div key={bookmark.id} style={isMobile ? styles.postCardMobile : styles.postCard}>
                       {bookmark.post.image_url && (
                         <img
-                          src={`${import.meta.env.VITE_API_URL}${bookmark.post.image_url}`}
+                          src={`${bookmark.post.image_url}`}
                           alt={bookmark.post.title}
                           style={isMobile ? styles.postCardImageMobile : styles.postCardImage}
                         />

@@ -72,10 +72,12 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
     )
     try:
         if not JWT_SECRET_KEY:
+            print("JWT_SECRET_KEY is not set!") # Debugging line
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, 
                 detail="JWT_SECRET_KEY not set"
             )
+        print(f"JWT_SECRET_KEY: {JWT_SECRET_KEY}") # Debugging line
         payload = jwt.decode(token, JWT_SECRET_KEY, algorithms=[ALGORITHM])
         email: str = payload.get("sub")
         if email is None:
