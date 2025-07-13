@@ -21,8 +21,8 @@ const CreatePost: React.FC = () => {
         const fetchCategories = async () => {
             try {
                 const response = await api.get('/post-categories/');
-                if (response.ok) {
-                    const data = await response.json();
+                if (response.status === 200) {
+                    const data = response.data;
                     setCategories(data);
                 } else {
                     console.error('Failed to fetch categories');
@@ -74,8 +74,8 @@ const CreatePost: React.FC = () => {
                     },
                 });
 
-                if (uploadResponse.ok) {
-                    const uploadData = await uploadResponse.json();
+                if (response.status === 200) {
+                    const data = response.data;
                     imageUrl = uploadData.url;
                 } else {
                     const uploadErrorData = uploadResponse.data;

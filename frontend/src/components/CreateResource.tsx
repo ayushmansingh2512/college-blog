@@ -23,8 +23,8 @@ const CreateResource: React.FC = () => {
         const fetchCategories = async () => {
             try {
                 const response = await api.get('/resource-categories/');
-                if (response.ok) {
-                    const data = await response.json();
+                if (response.status === 200) {
+                    const data = response.data;
                     setCategories(data);
                 } else {
                     console.error('Failed to fetch categories');
@@ -79,7 +79,7 @@ const CreateResource: React.FC = () => {
                     const uploadData = await uploadResponse.json();
                     imageUrl = uploadData.url;
                 } else {
-                    const uploadErrorData = uploadResponse.data;
+                    const uploadErrorData = await uploadResponse.json();
                     alert(`Error uploading image: ${uploadErrorData.detail || 'Unknown error'}`);
                     setIsSubmitting(false);
                     return;
