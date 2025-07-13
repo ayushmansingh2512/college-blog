@@ -64,25 +64,32 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/token")
 
-async def get_current_user(token = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     credentials_exception = HTTPException(
-        status_code = status.HTTP_401_UNAUTHORIZED,
+        status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
-        headers={"WWW-Authenticate":"Bearer"},
+        headers={"WWW-Authenticate": "Bearer"},
     )
     try:
         if not JWT_SECRET_KEY:
-            raise credentials_exception
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, 
+                detail="JWT_SECRET_KEY not set"
+            )
         payload = jwt.decode(token, JWT_SECRET_KEY, algorithms=[ALGORITHM])
-
-        email: str | None = payload.get("sub")
+        email: str = payload.get("sub")
         if email is None:
             raise credentials_exception
-
-    except JWTError:
-        raise credentials_exception
-
-    user = crud.get_user_by_email(db,email=email)
+        token_data = schemas.TokenData(email=email)
+    except JWTError as e:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=f"Token validation error: {e}",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    user = crud.get_user_by_email(db, email=token_data.email)
+    
     if user is None:
         raise credentials_exception
     return user 
