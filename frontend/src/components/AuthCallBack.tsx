@@ -38,7 +38,7 @@ const AuthCallBack = () => {
         console.log('Authorization code received, processing...')
 
         // Send the code to your backend
-        const response = await axios.get(`http://localhost:8000/auth/google/callback?code=${code}`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/google/callback?code=${code}`, {
           timeout: 10000 // 10 second timeout
         })
         
