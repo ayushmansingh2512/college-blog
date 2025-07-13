@@ -38,8 +38,11 @@ app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="stat
 app.include_router(auth.router)
 
 # Set up CORS
-CORS_ORIGINS = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://localhost:5174")
-origins = [origin.strip() for origin in CORS_ORIGINS.split(",")]
+origins = [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "https://college-blog-seven.vercel.app",
+]
 
 app.add_middleware(
     CORSMiddleware,
