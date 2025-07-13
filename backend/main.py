@@ -138,13 +138,45 @@ def read_post_categories(skip: int = 0, limit: int = 100, db: Session = Depends(
 
 # IMPROVED USER ENDPOINT with better error handling
 @app.get("/users/me", response_model=schemas.User)
-async def read_user_me(current_user: models.User = Depends(auth.get_current_user)):
+async def read_user_me(
+    current_user: models.User = Depends(auth.get_current_user),
+    db: Session = Depends(get_db)
+):
     try:
         if not current_user:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="User not found"
             )
+        
+        # Filter out bookmarks with null post_id or non-existent posts
+        current_user.bookmarks = [
+            bookmark for bookmark in current_user.bookmarks 
+            if bookmark.post_id is not None and bookmark.post is not None
+        ]
+
+        # Clean up orphaned bookmarks (optional, but good for data integrity)
+        null_post_bookmarks = db.query(models.Bookmark).filter(
+            models.Bookmark.user_id == current_user.id,
+            models.Bookmark.post_id.is_(None)
+        ).all()
+        
+        orphaned_bookmarks = db.query(models.Bookmark).outerjoin(
+            models.Post, models.Bookmark.post_id == models.Post.id
+        ).filter(
+            models.Bookmark.user_id == current_user.id,
+            models.Post.id.is_(None)
+        ).all()
+        
+        for bookmark in null_post_bookmarks:
+            db.delete(bookmark)
+        
+        for bookmark in orphaned_bookmarks:
+            db.delete(bookmark)
+        
+        db.commit()
+        db.refresh(current_user)
+        
         return current_user
     except HTTPException:
         raise  # Re-raise HTTP exceptions

@@ -65,11 +65,13 @@ def update_user_username(db: Session, user_id: int, username: Optional[str]):
     return db_user
 
 def delete_post(db: Session, post_id: int):
-    db_post = db.query(models.Post).filter(models.Post.id == post_id).first()
-    if db_post:
-        db.delete(db_post)
-        db.commit()
-    return db_post
+    """Delete post and clean up associated bookmarks"""
+    # First delete associated bookmarks
+    db.query(models.Bookmark).filter(models.Bookmark.post_id == post_id).delete()
+    
+    # Then delete the post
+    db.query(models.Post).filter(models.Post.id == post_id).delete()
+    db.commit()
 
 def get_post_category_by_name(db: Session, name: str):
     return db.query(models.PostCategory).filter(models.PostCategory.name == name).first()
@@ -108,7 +110,13 @@ def delete_bookmark(db: Session, bookmark_id: int):
     return db_bookmark
 
 def get_bookmarks_by_user(db: Session, user_id: int):
-    return db.query(models.Bookmark).options(joinedload(models.Bookmark.post)).filter(models.Bookmark.user_id == user_id).join(models.Post).all()
+    """Get user bookmarks with proper filtering"""
+    return db.query(models.Bookmark).join(
+        models.Post
+    ).filter(
+        models.Bookmark.user_id == user_id,
+        models.Post.id.is_not(None)  # Ensure post exists
+    ).all()
 
 def create_resource(db: Session, resource: schemas.ResourceCreate):
     db_resource = models.Resource(**resource.model_dump())
