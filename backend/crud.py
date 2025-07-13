@@ -108,7 +108,7 @@ def delete_bookmark(db: Session, bookmark_id: int):
     return db_bookmark
 
 def get_bookmarks_by_user(db: Session, user_id: int):
-    return db.query(models.Bookmark).filter(models.Bookmark.user_id == user_id).options(joinedload(models.Bookmark.post)).all()
+    return db.query(models.Bookmark).options(joinedload(models.Bookmark.post)).filter(models.Bookmark.user_id == user_id, models.Bookmark.post != None).all()
 
 def create_resource(db: Session, resource: schemas.ResourceCreate):
     db_resource = models.Resource(**resource.model_dump())
