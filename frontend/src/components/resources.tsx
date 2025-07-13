@@ -294,7 +294,7 @@ const Resources = () => {
                   }}>
                     {resource.image_url ? (
                       <img 
-                        src={`${import.meta.env.VITE_API_URL}${resource.image_url}`} 
+                        src={`${resource.image_url}`} 
                         alt={resource.title} 
                         style={{ 
                           width: '100%', 
@@ -468,7 +468,7 @@ const Resources = () => {
                     marginBottom: '16px'
                   }}>
                     <img
-                      src={`${import.meta.env.VITE_API_URL}${selectedResource.image_url}`}
+                      src={`${selectedResource.image_url}`}
                       alt={selectedResource.title}
                       style={{ 
                         width: '100%', 
@@ -671,7 +671,7 @@ const Resources = () => {
                 }}>
                   {resource.image_url ? (
                     <img 
-                      src={`${import.meta.env.VITE_API_URL}${resource.image_url}`} 
+                      src={`${resource.image_url}`} 
                       alt={resource.title} 
                       style={{ 
                         width: '100%', 
@@ -870,7 +870,7 @@ const Resources = () => {
                   backgroundColor: '#f3f4f6'
                 }}>
                   <img
-                    src={`${import.meta.env.VITE_API_URL}${selectedResource.image_url}`}
+                    src={`${selectedResource.image_url}`}
                     alt={selectedResource.title}
                     style={{ 
                       width: '100%', 

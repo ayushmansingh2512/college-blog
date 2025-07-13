@@ -290,7 +290,7 @@ const Clubs = () => {
                   }}>
                     {club.image_url ? (
                       <img 
-                        src={`${import.meta.env.VITE_API_URL}${club.image_url}`} 
+                        src={`${club.image_url}`} 
                         alt={club.name} 
                         style={{ 
                           width: '100%', 
@@ -663,7 +663,7 @@ const Clubs = () => {
                 }}>
                   {club.image_url ? (
                     <img 
-                      src={`${import.meta.env.VITE_API_URL}${club.image_url}`} 
+                      src={`${club.image_url}`} 
                       alt={club.name} 
                       style={{ 
                         width: '100%', 
@@ -835,7 +835,7 @@ const Clubs = () => {
                   backgroundColor: '#f3f4f6'
                 }}>
                   <img
-                    src={`${import.meta.env.VITE_API_URL}${selectedClub.image_url}`} 
+                    src={`${selectedClub.image_url}`} 
                     alt={selectedClub.name}
                     style={{ 
                       width: '100%', 
