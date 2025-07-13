@@ -74,8 +74,8 @@ const CreatePost: React.FC = () => {
                     },
                 });
 
-                if (response.status === 200) {
-                    const data = response.data;
+                if (uploadResponse.status === 200) {
+                    const uploadData = uploadResponse.data;
                     imageUrl = uploadData.url;
                 } else {
                     const uploadErrorData = uploadResponse.data;
