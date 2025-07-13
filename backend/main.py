@@ -1,7 +1,6 @@
 import os
 import cloudinary
 import cloudinary.uploader
-from dotenv import load_dotenv
 from fastapi import FastAPI, Depends, HTTPException, UploadFile, File, status
 from fastapi.staticfiles import StaticFiles
 import shutil
@@ -19,7 +18,7 @@ from typing import List
 from .schemas import BookmarkCreate, Bookmark
 from backend.crud import create_bookmark, get_bookmark_by_user_and_post, delete_bookmark, get_bookmarks_by_user
 
-load_dotenv()
+
 
 # This command creates all the tables defined in models.py in the database
 models.Base.metadata.create_all(bind=engine)
