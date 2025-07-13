@@ -2,7 +2,7 @@ import os
 import cloudinary
 import cloudinary.uploader
 from dotenv import load_dotenv
-from fastapi import FastAPI, Depends, HTTPException, UploadFile, File,status
+from fastapi import FastAPI, Depends, HTTPException, UploadFile, File, status
 from fastapi.staticfiles import StaticFiles
 import shutil
 from pathlib import Path
@@ -16,8 +16,8 @@ from .database import SessionLocal, engine, get_db
 from .email_utils import send_verification_email
 import secrets
 from typing import List
-from .schemas import BookmarkCreate, Bookmark # Add this line
-from backend.crud import create_bookmark, get_bookmark_by_user_and_post, delete_bookmark, get_bookmarks_by_user # Add this line
+from .schemas import BookmarkCreate, Bookmark
+from backend.crud import create_bookmark, get_bookmark_by_user_and_post, delete_bookmark, get_bookmarks_by_user
 
 load_dotenv()
 
@@ -37,12 +37,17 @@ app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="stat
 
 app.include_router(auth.router)
 
+# FIXED CORS Configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://college-blog-seven.vercel.app", "http://localhost:5173", "https://college-blog-k9xn.onrender.com"],
+    allow_origins=[
+        "https://college-blog-seven.vercel.app",
+        "http://localhost:5173",
+        "http://localhost:8000"
+    ],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization", "Accept"],
 )
 
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
@@ -53,6 +58,11 @@ cloudinary.config(
     api_key=os.getenv("CLOUDINARY_API_KEY"),
     api_secret=os.getenv("CLOUDINARY_API_SECRET"),
 )
+
+# Add a health check endpoint
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy", "timestamp": datetime.utcnow()}
 
 @app.post("/users/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
@@ -79,12 +89,29 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     send_verification_email(db_user.email, verification_link)
     return db_user
 
-# ---- FIXED POST ENDPOINT ----
+# FIXED UPLOAD ENDPOINT - Handle both Cloudinary and local uploads
 @app.post("/uploadfile")
 async def create_upload_file(file: UploadFile = File(...)):
-    # Upload image to Cloudinary
-    result = cloudinary.uploader.upload(file.file)
-    return {"filename": result["public_id"], "url": result["secure_url"]}
+    try:
+        # Check if file is valid
+        if not file.content_type.startswith("image/"):
+            raise HTTPException(status_code=400, detail="File must be an image")
+        
+        # Upload to Cloudinary
+        result = cloudinary.uploader.upload(
+            file.file,
+            folder="college-blog",  # Organize uploads in a folder
+            resource_type="auto"
+        )
+        
+        return {
+            "filename": result["public_id"],
+            "url": result["secure_url"],
+            "success": True
+        }
+    except Exception as e:
+        print(f"Upload error: {e}")
+        raise HTTPException(status_code=500, detail=f"Upload failed: {str(e)}")
 
 @app.post("/posts/", response_model=schemas.Post)
 def create_post_for_user(
@@ -110,15 +137,23 @@ def read_post_categories(skip: int = 0, limit: int = 100, db: Session = Depends(
     categories = crud.get_post_categories(db, skip=skip, limit=limit)
     return categories
 
-
+# IMPROVED USER ENDPOINT with better error handling
 @app.get("/users/me", response_model=schemas.User)
 async def read_user_me(current_user: models.User = Depends(auth.get_current_user)):
     try:
+        if not current_user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="User not found"
+            )
         return current_user
+    except HTTPException:
+        raise  # Re-raise HTTP exceptions
     except Exception as e:
+        print(f"Error in /users/me: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"An unexpected error occurred: {e}"
+            detail="Internal server error"
         )
 
 @app.put("/users/me/username", response_model=schemas.User)
@@ -133,9 +168,8 @@ def update_my_username(
         username=username_update.username
     )
     if not updated_user:
-        raise HTTPException(status_code=404, detail="User not found") # Should not happen with current_user
+        raise HTTPException(status_code=404, detail="User not found")
     return updated_user
-
 
 @app.put("/posts/{post_id}", response_model=schemas.Post)
 def update_post(
@@ -177,10 +211,6 @@ def read_post(post_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Post not found")
     return db_post
 
-
-
-
-
 @app.post("/bookmarks/", response_model=schemas.Bookmark, status_code=status.HTTP_201_CREATED)
 def create_user_bookmark(
     bookmark: schemas.BookmarkCreate,
@@ -192,8 +222,6 @@ def create_user_bookmark(
         raise HTTPException(status_code=400, detail="Bookmark already exists")
     return crud.create_bookmark(db=db, user_id=current_user.id, post_id=bookmark.post_id)
 
-
-
 @app.get("/bookmarks/", response_model=List[schemas.Bookmark])
 def read_user_bookmarks(
     db: Session = Depends(get_db),
@@ -201,7 +229,6 @@ def read_user_bookmarks(
 ):
     bookmarks = crud.get_bookmarks_by_user(db, user_id=current_user.id)
     return bookmarks
-
 
 @app.delete("/bookmarks/{bookmark_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_user_bookmark(
@@ -215,7 +242,6 @@ def delete_user_bookmark(
     if db_bookmark.user_id != current_user.id:
         raise HTTPException(status_code=403, detail="Not authorized to delete this bookmark")
     crud.delete_bookmark(db=db, bookmark_id=db_bookmark.id)
-
 
 @app.post("/resources/", response_model=schemas.Resource)
 def create_resource(
@@ -284,7 +310,6 @@ def create_resource_category(
 def read_resource_categories(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     categories = crud.get_resource_categories(db, skip=skip, limit=limit)
     return categories
-
 
 @app.post("/clubs/", response_model=schemas.Club)
 def create_club(
