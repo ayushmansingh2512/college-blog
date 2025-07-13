@@ -58,11 +58,24 @@ class PostSummary(BaseModel):
     class Config:
         from_attributes = True
  
+class PostInBookmark(BaseModel):
+    id: int
+    title: str
+    content: str
+    owner_id: int
+    created_at: Optional[datetime] = None
+    image_url: Optional[str] = None  
+    category_id: Optional[int] = None  
+    category: Optional[PostCategory] = None  
+    
+    class Config:
+        from_attributes = True
+ 
 class Bookmark(BookmarkBase):
     id: int
     user_id: int
     created_at: datetime
-    post: PostSummary  # Use PostSummary instead of PostInBookmark
+    post: PostInBookmark
 
     class Config:
         from_attributes = True

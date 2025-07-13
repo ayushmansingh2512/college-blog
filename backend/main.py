@@ -177,9 +177,7 @@ def read_post(post_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Post not found")
     return db_post
 
-@app.get("/users/me", response_model=schemas.User)
-async def read_user_me(current_user: models.User = Depends(auth.get_current_user)):
-    return current_user
+
 
 
 
