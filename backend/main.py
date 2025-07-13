@@ -39,7 +39,7 @@ app.include_router(auth.router)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://college-blog-seven.vercel.app"],
+    allow_origins=["https://college-blog-seven.vercel.app", "http://localhost:5173", "https://college-blog-k9xn.onrender.com"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
