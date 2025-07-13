@@ -61,7 +61,6 @@ const UserProfile = () => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('token_type');
     console.log("Tokens removed from localStorage.");
-    setIsLoggedIn(false);
     window.dispatchEvent(new Event('logoutEvent'));
     navigate("/");
   };
@@ -895,7 +894,7 @@ const styles = {
     margin: '0 0 12px',
     display: '-webkit-box',
     WebkitLineClamp: 3,
-    WebkitBoxOrient: 'vertical',
+    WebkitBoxOrient: 'vertical' as const,
     overflow: 'hidden',
   },
   postCardMeta: {

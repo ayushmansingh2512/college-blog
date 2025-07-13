@@ -348,7 +348,8 @@ const Navbar = () => {
                 >
                Sign Up
                 </Link>
-                <button
+                {/* Login with Google */}
+                {/* <button
                   onClick={handleGoogleLogin}
                   style={{
                     
@@ -372,7 +373,7 @@ const Navbar = () => {
                    
                 >
                 Login with Google
-                </button>
+                </button> */}
               </div>
             )}
           </>

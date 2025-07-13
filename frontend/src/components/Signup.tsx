@@ -13,7 +13,7 @@ const Signup = () => {
     setMessage("");
     
     try {
-      const response = await api.post("/users/", {
+      await api.post("/users/", {
         email,
         password,
       });

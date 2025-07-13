@@ -78,7 +78,7 @@ const CreateClub: React.FC = () => {
                     const uploadData = await uploadResponse.json();
                     imageUrl = uploadData.url;
                 } else {
-                    const uploadErrorData = await uploadResponse.json();
+                    const uploadErrorData = uploadResponse.data;
                     alert(`Error uploading image: ${uploadErrorData.detail || 'Unknown error'}`);
                     setIsSubmitting(false);
                     return;
@@ -93,20 +93,13 @@ const CreateClub: React.FC = () => {
 
         try {
             const response = await api.post('/clubs/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                    name,
-                    description,
-                    image_url: imageUrl,
-                    category_id: selectedCategoryId,
-                }),
+                name,
+                description,
+                image_url: imageUrl,
+                category_id: selectedCategoryId,
             });
 
-            if (response.ok) {
+            if (response.status === 200) {
                 alert('Club created successfully!');
                 navigate('/clubs');
             } else {
