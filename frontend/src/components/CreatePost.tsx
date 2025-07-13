@@ -15,7 +15,17 @@ const CreatePost: React.FC = () => {
     const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isMobile, setIsMobile] = useState(false); // Add isMobile state
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -141,7 +151,7 @@ const CreatePost: React.FC = () => {
             </header>
 
             {/* Main Content */}
-            <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 1rem' }}>
+            <div style={{ maxWidth: '800px', margin: '0 auto', padding: isMobile ? '0 1rem 80px 1rem' : '0 1rem' }}>
                 <form onSubmit={handleSubmit} style={{
                     backgroundColor: 'white',
                     borderRadius: '16px',
