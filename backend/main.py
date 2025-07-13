@@ -37,18 +37,11 @@ app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="stat
 
 app.include_router(auth.router)
 
-# Set up CORS
-origins = [
-    "http://localhost:5173",
-    "http://localhost:5174",
-    "https://college-blog-seven.vercel.app",
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["https://college-blog-seven.vercel.app"],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["*"]
     allow_headers=["*"],
 )
 
